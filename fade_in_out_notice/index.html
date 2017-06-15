@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style>
+    ul {
+      width: 200px;
+      height: 100px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    li {
+      height: 100px;
+      line-height: 100px;
+      animation: fade_in_out 2s linear infinite, move_pos 8s steps(4) infinite;
+    }
+
+    @keyframes fade_in_out {
+      0% {
+        opacity: 0;
+      }
+
+      50% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0;
+      }
+    }
+
+    @keyframes move_pos {
+      0% {
+        transform: translate3d(0,0,0);
+      }
+      100% {
+        transform: translate3d(0,-400%,0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <p>
+    淡入淡出的消息轮播
+  </p>
+  <ul>
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+  </ul>
+</body>
+</html>
