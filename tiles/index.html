@@ -73,35 +73,46 @@
       opacity: 1;
     }
 
+    .tile2 {
+      overflow: hidden;
+    }
 
     .tile2 .content {
-      content: '';
-      position: absolute;
       width: 100%;
       height: 100%;
       background: #ffff00;
     }
 
-    .tile2::after {
+    .tile2 .mask {
       content: '';
       position: absolute;
       width: 100%;
       height: 100%;
-      background: #fff;
-      opacity: 0.5;
-      top: -100%;
+      background: #000;
+      opacity: 0.1;
+      top: 0;
       left: 0;
-      transition: all 0.5s ease-out;
+      transition: all 0.2s ease-in;
     }
 
-
-    .tile2:hover::after {
-      top: 0;
+    .tile2 .mask.disable_transition {
+      transition: none;
     }
 
-    .tile2.mouseout::after {
-      top: 0;
+    .tile2 .mask.top_down {
+      top: 100%;
+    }
+
+    .tile2 .mask.down_top {
+      top: -100%;
+    }
+
+    .tile2 .mask.left_right {
       left: 100%;
+    }
+
+    .tile2 .mask.right_left {
+      left: -100%;
     }
 
   </style>
@@ -117,19 +128,90 @@
     </div>
     <div class="tile tile2">
       <div class="content">
-        <header>header</header>
-        <main>content</main>
-        <footer>footer</footer>
+        <header></header>
+        <main></main>
+        <footer></footer>
       </div>
+      <div class="mask"></div>
     </div>
   </div>
   <script>
-    // document.addEventListener("DOMContentLoaded", function(event) {
+    var mask = document.querySelector('.tile2 .mask');
+    var zoneMap = {
+      '0': 'top_down',
+      '1': 'right_left',
+      '2': 'down_top',
+      '3': 'left_right'
+    };
+    var transitionend = true;
+    var timer = void 0;
+    
+    document.querySelector('.mask').addEventListener('transitionend', function(){
+      transitionend = true;
+      disableTransition();
+    }, false);
+
+    document.querySelector('.tile2').addEventListener('mouseenter', function(event){
+      enableTransition();
+      transitionend = false;
+      removeClass();
+      setClass(event);
+    });
+
+    document.querySelector('.tile2').addEventListener('mousemove', function(event){
       
-    // });
-    document.querySelector('.tile2').addEventListener('mouseout', function(){
-      event.target.classList.add('mouseout');
-    })
+      clearTimeout(timer);
+      timer = setTimeout(function(){
+        if(transitionend) {
+          removeClass();
+          setClass(event);
+        }
+      }, 10);
+
+    });
+
+    document.querySelector('.tile2').addEventListener('mouseleave', function(){
+      enableTransition();
+      transitionend = false;
+      removeClass();
+    });
+
+    function setClass(event){
+      var center = {x: event.target.offsetWidth / 2, y: event.target.offsetHeight / 2};
+      var position = {x: event.offsetX, y: event.offsetY};
+      var zone = void 0;
+
+      if(position.y / position.x > 1) {
+        if(position.y > event.target.offsetWidth - position.x) {
+          zone = '2';
+        } else {
+          zone = '3';
+        }
+      } else {
+        if(position.y > event.target.offsetWidth - position.x) {
+          zone = '1';
+        } else {
+          zone = '0';
+        }
+      }
+
+      mask.classList.add(zoneMap[zone]); 
+    }
+
+    function removeClass(){
+      for(var key in zoneMap) {
+        mask.classList.remove(zoneMap[key]);
+      }
+    }
+
+    function disableTransition(){
+      mask.classList.add('disable_transition');
+    }
+
+    function enableTransition(){
+      mask.classList.remove('disable_transition');
+    }
+
   </script>
 </body>
 </html>
