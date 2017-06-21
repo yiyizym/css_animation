@@ -91,13 +91,19 @@
       opacity: 0.5;
       top: -100%;
       left: 0;
-      transition: top 0.5s ease-out;
+      transition: all 0.5s ease-out;
     }
 
 
     .tile2:hover::after {
       top: 0;
     }
+
+    .tile2.mouseout::after {
+      top: 0;
+      left: 100%;
+    }
+
   </style>
 </head>
 <body>
@@ -117,5 +123,13 @@
       </div>
     </div>
   </div>
+  <script>
+    // document.addEventListener("DOMContentLoaded", function(event) {
+      
+    // });
+    document.querySelector('.tile2').addEventListener('mouseout', function(){
+      event.target.classList.add('mouseout');
+    })
+  </script>
 </body>
 </html>
