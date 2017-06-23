@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style>
+    /*.path {
+        stroke-dasharray: 283;
+        animation: dash 5s linear forwards;
+        stroke-dashoffset: 283;
+    }*/
+
+    @keyframes dash {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <svg width="190px" height="160px" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <path d="M10 80 C 40 10, 65 10, 95 80 S 150 150, 180 80" stroke-width="2" stroke="black" fill="transparent"/>
+  </svg>
+  <script>
+    // see https://css-tricks.com/svg-line-animation-works/
+    var svg = document.querySelector('svg');
+    var path = document.querySelector('svg path');
+    var pathLen = path.getTotalLength();
+    svg.addEventListener('mouseenter', function(){
+      var style = path.style;
+      style['stroke-dasharray'] = pathLen;
+      style['stroke-dashoffset'] = pathLen;
+      style['animation'] = 'dash 5s linear forwards';
+    });
+  </script>
+</body>
+</html>
