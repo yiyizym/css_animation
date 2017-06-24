@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .container {
+            display: flex;
+    flex-direction: column;
+    align-items: center;
+        }
+
+        .btn {
+            position: relative;
+            display: inline-block;
+            margin: 50px 0; 
+            border: none;
+            background-color: #000;
+            color: #fff;
+            width: 200px;
+            height: 100px;
+            line-height: 100px;
+            text-align: center;
+            transition: color 0.2s ease-out;
+        }
+
+        .btn:hover {
+            background-color: #fff;
+            color: #000;
+        }
+
+        .btn::after,
+        .btn::before {
+            content: '';
+            position: absolute;
+            width: 0%;
+            height: 0%;
+            border-width: 1px;
+            border-color: #000;
+            border-style: solid;
+        }
+
+        
+
+        .btn:hover::after,
+        .btn:hover::before {
+            height: calc(100% - 1px);
+            width: calc(100% - 1px);
+        }
+
+        .btn::before {
+            left: 0;
+            top: 0;
+        }
+
+        .btn::after {
+            right: 0;
+            bottom: 0;
+        }
+
+        .btn_1::before {
+            border-bottom: none;
+            border-right: none;
+        }
+
+        .btn_1::after {
+            border-left: none;
+            border-top: none;
+        }
+
+        .btn_1::after,
+        .btn_1::before {
+            transition: all 0.2s ease-out;
+        }
+
+        .btn_2::before {
+            border-left: none;
+            border-bottom: none;
+        }
+
+        .btn_2::after {
+            border-right: none;
+            border-top: none;
+        }
+
+        .btn_2::before {
+            transition: width 0.2s ease, height 0.2s ease 0.25s;
+        }
+
+        .btn_2::after {
+            transition: width 0.2s ease, height 0.2s ease 0.25s;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <span class="btn btn_1">READ MORE</span>
+        <span class="btn btn_2">READ MORE</span>
+    </div>
+</body>
+
+</html>
