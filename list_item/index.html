@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        ul {
+            margin: 100px;
+            list-style-type: none;
+        }
+
+        li {
+            color: #666;
+        }
+
+        li:hover {
+            color: #333;
+        }
+
+        a {
+            margin: 0 10px;
+            color: inherit;
+            text-decoration: none;
+        }
+
+        li.before {
+            overflow: hidden;
+        }
+
+        li.before::before {
+            box-sizing: border-box;
+            display: inline-block;
+            content: '';
+            height: 5px;
+            width: 0px;
+            border-bottom-width: 1px;
+            border-bottom-style: solid;
+            vertical-align: middle;
+            transition: width 0.5s ease-out;
+            border-right-width: 1px;
+            border-right-style: solid;
+            transform: skewX(45deg) translateX(-3px);
+        }
+
+        li.before:hover::before {
+            width: 43px;
+        }
+
+        li.after::after {
+            box-sizing: border-box;
+            display: inline-block;
+            content: '';
+            height: 5px;
+            width: 20px;
+            border-bottom-width: 1px;
+            border-bottom-style: solid;
+            border-right-width: 1px;
+            border-right-style: solid;
+            vertical-align: middle;
+            transform: skewX(45deg);
+            transition: width 0.5s ease-out;
+        }
+
+        li.after:hover::after {
+            width: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li class="before"><a href="http://judes.me" target="_blank">jude's life</a></li>
+        <li class="after"><a href="http://judes.me" target="_blank">jude's life</a></li>
+    </ul>
+</body>
+
+</html>
