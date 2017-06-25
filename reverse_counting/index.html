@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        ul {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            padding: 0;
+            line-height: 100px;
+            text-align: center;
+            border-radius: 50%;
+            margin: 100px auto;
+            background-color: hotpink;
+            list-style-type: none;
+            color: #fff;
+            font-size: 20px;
+        }
+
+        li {
+            position: absolute;
+            width: 100%;
+            transform: scale(0.01);
+        }
+
+        @keyframes show {
+            0% {
+                transform: rotate(180deg) scale(0.01);
+            }
+            50% {
+                transform: rotate(0deg) scale(3);
+            }
+            100% {
+                transform: rotate(-180deg) scale(0.01);
+            }
+        }
+
+        @keyframes explode {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(0.01);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(100);
+                opacity: 0;
+            }
+        }
+    </style>
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var ul = document.createElement('ul');
+        var numbers = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0];
+        var style = document.createElement('style');
+        var styleArr = [];
+        numbers.forEach(function (num) {
+            var li = document.createElement('li');
+            li.textContent = num;
+            li.classList.add('li_' + num);
+            ul.appendChild(li);
+            styleArr.push('.li_' + num + '{' + 'animation: show 1s ease-in-out ' + (10 - num) + 's }')
+        });
+        styleArr.push('ul {' + 'animation: explode 2s ease ' + numbers.length + 's forwards}')
+        style.textContent = styleArr.join('');
+        document.body.appendChild(ul);
+        document.head.appendChild(style);
+    </script>
+</body>
+
+</html>

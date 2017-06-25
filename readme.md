@@ -8,3 +8,4 @@
 - waves ， 沙滩海浪效果
 - button_border ， 鼠标移到按钮上时，按钮的 border 动画
 - list_item ， 鼠标移到列表项上时，列表项的动画
+- reverse_counting ，倒计时效果，从[这里](https://www.youtube.com/watch?v=RA2SDuTdBQ4&list=RDRA2SDuTdBQ4#t=275)获得灵感
