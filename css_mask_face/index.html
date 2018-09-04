@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>face</title>
+    <style lang="css">
+        html {
+            height: 100%;
+        }
+        body {
+            margin: 0;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #icons {
+            user-select: none;
+            border-radius: 50px;
+            padding: 0 20px;
+            margin: 0 40px;
+            background-color: hsla(0, 0%, 0%, .02);
+            box-shadow: inset 0 1px 4px hsla(0, 0%, 0%, .1), 0 1px 2px hsla(0, 0%, 100%, .3);
+        }
+        i {
+            display: inline-block;
+            cursor: pointer;
+            width: 250px;
+            height: 231px;
+            background: url('./method-draw-image.svg');
+
+
+            background-image: -webkit-radial-gradient( 50% 50%, 60% 80%, hsla(0, 100%, 50%, .7), hsla(0, 100%, 20%, .8) 60%, hsla(0, 100%, 10%, 1));
+            -webkit-mask-image: url('./method-draw-image.svg'), url('./method-draw-image-face.svg');
+            -webkit-mask-position: 0 0, 0px 12px;
+
+            transition: -webkit-mask-position .5s ease-out;
+        }
+
+        i:hover {
+            background-image: -webkit-radial-gradient( 50% 50%, 60% 80%, hsla(120, 100%, 50%, .7), hsla(120, 100%, 20%, .8) 60%, hsla(120, 100%, 10%, 1));
+
+            -webkit-mask-position: 0 0, 0px -2px;
+
+            transition: -webkit-mask-position .1s cubic-bezier(0, .40, .20, 1);
+        }
+
+        i:active {
+            transform: translateY(2px);
+            animation: robot-active .1s .2s cubic-bezier(.70, 0, .30, 1) infinite alternate;
+        }
+
+        @-webkit-keyframes robot-active {
+            0% {
+                -webkit-mask-position: 0 0, -14px 0px;
+            }
+
+            100% {
+                -webkit-mask-position: 0 0, 14px 0px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div id="icons">
+        <i class="robot"></i>
+    </div>
+</body>
+</html>
