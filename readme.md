@@ -1,4 +1,4 @@
-**一些 css 动画练习 demo**
+**一些 css 动画(练习) demo**
 
 - anitama_loading ， 仿照 anitama loading 效果
 - car_rush ， css 动画惯性效果
@@ -11,3 +11,4 @@
 - reverse_counting ，倒计时效果，从[这里](https://www.youtube.com/watch?v=RA2SDuTdBQ4&list=RDRA2SDuTdBQ4#t=275)获得灵感
 - css_mask_face ，完全照抄 [这里](https://codepen.io/nktkarnany/pen/bjmZOQ)
 - octocat , 会动的章鱼猫。素材出处[这里](https://github.com/tholman/github-corners)
+- DistortionHoverEffect 很绚的页面过渡效果，用 threejs + TweenMax 实现，具体看 hover.js 文件
