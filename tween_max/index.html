@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./TweenMax.min.js"></script>
+    <style lang="css">
+        .hidden {
+            display: none;
+        }
+        #ctn {
+            width: 80vw;
+            height: 50vh;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        svg {
+            width: 2vw;
+            margin: 0 1vw;
+            cursor: pointer;
+        }
+        .right svg {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body>
+    <svg class="hidden">
+        <symbol id="icon-caret" viewBox="0 0 16 24">
+            <title>caret</title>
+            <path d="M15.45 2.8L12.65 0l-12 12 12 12 2.8-2.8-9.2-9.2z" />
+        </symbol>
+    </svg>
+    <div id="ctn">
+        <div class="left">
+            <svg>
+                <use xlink:href="#icon-caret"></use>
+            </svg>
+        </div>
+        <div class="num"></div>
+        <div class="right">
+            <svg>
+                <use xlink:href="#icon-caret"></use>
+            </svg>
+        </div>
+    </div>
+
+    <script>
+        class NumChanger {
+            constructor(el, settings){
+                this.DOM = {el};
+                this.DOM.left = this.DOM.el.querySelector('.left');
+                this.DOM.num = this.DOM.el.querySelector('.num');
+                this.DOM.right = this.DOM.el.querySelector('.right');
+                this.changing = false;
+                this.defaultConfig = {
+                    range: [1,2,3]
+                }
+                Object.assign(this.defaultConfig, settings);
+                this.init();
+            }
+
+            init() {
+                this.currentIndex = 0;
+                this.totalNums = this.defaultConfig.range.length;
+                this.DOM.num.innerHTML = this.defaultConfig.range[this.currentIndex];
+                this.initEvents()
+            }
+
+            initEvents(){
+                this.DOM.left.addEventListener('click', () => {
+                    if(this.changing) return;
+                    this.changing = true;
+                    this.changeNum('down').then(_ => this.changing = false);
+                });
+                this.DOM.right.addEventListener('click', () => {
+                    if (this.changing) return;
+                    this.changing = true;
+                    this.changeNum('up').then(_ => this.changing = false);
+                });
+            }
+
+            changeNum(direction){
+                return new Promise((resolve)=> {
+                    let nextIndex = direction === 'down'
+                                ? this.currentIndex > 0 ? this.currentIndex - 1 : this.totalNums - 1
+                                : this.currentIndex >= this.totalNums - 1 ? 0 : this.currentIndex + 1;
+                    TweenMax.to(this.DOM.num, 0.4, {
+                        ease: 'Back.easeIn',
+                        y: direction === 'down' ? '100%' : '-100%',
+                        opacity: 0,
+                        onComplete: () => {
+                            this.DOM.num.innerHTML = this.defaultConfig.range[nextIndex];
+                            this.currentIndex = nextIndex;
+                            TweenMax.to(this.DOM.num, 0.8, {
+                                ease: 'Expo.easeOut',
+                                startAt: {
+                                    y: direction === 'down' ? '-50%' : '50%',
+                                    opacity: 0,
+                                },
+                                y: '0%',
+                                opacity: 1
+                            });
+                            resolve()
+                        }
+                    });
+                })
+            }
+        }
+
+        const numChanger = new NumChanger(document.querySelector('#ctn'));
+
+    </script>
+</body>
+</html>
